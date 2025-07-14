@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Find Users{% endblock %}
+
+{% block content %}
+    <h1>Find Other Users</h1>
+
+    <div id="feed">
+        {% for user in all_users %}
+            <div class="tweet" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div class="author">
+                        <a href="/profile/{{ user.username }}">{{ user.username }}</a>
+                    </div>
+                    <p style="margin: 0; color: #65676b;">{{ user.email }}</p>
+                </div>
+                
+                <div>
+                    {% if user.id in following_ids %}
+                        <form action="/unfollow/{{ user.id }}" method="post" style="margin: 0;">
+                            <button type="submit">Unfollow</button>
+                        </form>
+                    {% else %}
+                        <form action="/follow/{{ user.id }}" method="post" style="margin: 0;">
+                            <button type="submit">Follow</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p>No other users have registered yet.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

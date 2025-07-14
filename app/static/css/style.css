@@ -1,0 +1,140 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+/* --- Navigation Bar --- */
+nav {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #dddfe2;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-weight: bold;
+    font-size: 24px;
+    color: #1877f2;
+    text-decoration: none;
+}
+
+nav .nav-links a {
+    text-decoration: none;
+    color: #1c1e21;
+    font-weight: 500;
+    margin-left: 15px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+nav .nav-links a:hover {
+    background-color: #f0f2f5;
+}
+
+/* --- Main Content --- */
+main {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+}
+
+h1 {
+    font-size: 28px;
+    color: #1c1e21;
+    margin-bottom: 20px;
+}
+
+/* --- Forms --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+form input, form textarea {
+    padding: 12px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+form button {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover {
+    background-color: #166fe5;
+}
+
+/* --- Tweet Feed --- */
+.tweet {
+    border: 1px solid #dddfe2;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.tweet .author {
+    font-weight: bold;
+    color: #050505;
+    margin-bottom: 5px;
+}
+
+.tweet .author a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.tweet .author a:hover {
+    text-decoration: underline;
+}
+
+.tweet .content {
+    color: #1c1e21;
+    line-height: 1.4;
+}
+
+.tweet .timestamp {
+    font-size: 12px;
+    color: #65676b;
+    margin-top: 10px;
+}
+
+/* --- Alerts --- */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #e74c3c;
+}

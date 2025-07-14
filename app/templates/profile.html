@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+    <h1>{{ profile_user.username }}</h1>
+    <p>Email: {{ profile_user.email }}</p>
+
+    {% if current_user and current_user.id != profile_user.id %}
+        {% if is_following %}
+            <form action="/unfollow/{{ profile_user.id }}" method="post" style="margin-bottom: 20px;">
+                <button type="submit">Unfollow</button>
+            </form>
+        {% else %}
+            <form action="/follow/{{ profile_user.id }}" method="post" style="margin-bottom: 20px;">
+                <button type="submit">Follow</button>
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <hr>
+
+    <h2>Following ({{ profile_user.followed|length }})</h2>
+    <div id="following-feed">
+        {% for user in profile_user.followed %}
+            <div class="tweet"> <div class="author">
+                    <a href="/profile/{{ user.username }}">{{ user.username }}</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Not following anyone.</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h2>Followers ({{ profile_user.followers|length }})</h2>
+    <div id="followers-feed">
+        {% for user in profile_user.followers %}
+            <div class="tweet"> <div class="author">
+                    <a href="/profile/{{ user.username }}">{{ user.username }}</a>
+                </div>
+            </div>
+        {% else %}
+            <p>No followers yet.</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h2>{{ profile_user.username }}'s Tweets</h2>
+    <div id="feed">
+        {% for tweet in user_tweets %}
+            <div class="tweet">
+                <div class="author">{{ tweet.author.username }}</div>
+                <div class="content">{{ tweet.text }}</div>
+                <div class="timestamp">{{ tweet.created_at.strftime('%b %d, %Y at %I:%M %p') }}</div>
+            </div>
+        {% else %}
+            <p>This user hasn't posted any tweets yet.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

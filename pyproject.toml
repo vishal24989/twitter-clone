@@ -1,0 +1,44 @@
+# The [tool.poetry] section contains general information about your project.
+[tool.poetry]
+name = "twitter-clone"
+version = "0.1.0"
+description = "A simplified Twitter clone with a fan-out-on-write architecture."
+authors = ["Your Name <you@example.com>"]
+
+# The [tool.poetry.dependencies] section lists all the Python packages your application needs to run.
+[tool.poetry.dependencies]
+python = "^3.10"
+
+# --- Core Framework ---
+fastapi = "*"                  # The main web framework for building your API.
+uvicorn = {extras = ["standard"], version = "*"} # The ASGI server that runs your FastAPI app.
+python-multipart = "*" # Add this line to handle form data
+
+# --- Database & ORM ---
+sqlalchemy = "*"               # The Object-Relational Mapper (ORM) for interacting with the database.
+psycopg2-binary = "*"          # The Python driver needed to connect to a PostgreSQL database.
+
+# --- Templating ---
+jinja2 = "*"                   # The templating engine for rendering your HTML pages.
+
+# --- Security ---
+passlib = {extras = ["bcrypt"], version = "*"}     # For securely hashing and verifying passwords.
+bcrypt = "<4.0"  # Add this line to specify a compatible bcrypt version
+python-jose = {extras = ["cryptography"], version = "*"} # For creating and verifying JWT access tokens.
+
+# --- Message Queue & Cache ---
+kafka-python = "*"             # The Python client for producing and consuming messages with Kafka.
+redis = "*"                    # The Python client for interacting with the Redis cache.
+
+# --- Environment Variables ---
+python-dotenv = "*"            # For loading configuration variables from your .env file.
+
+
+# The [tool.poetry.dev-dependencies] section is for packages used only during development (e.g., linters, testing tools).
+[tool.poetry.dev-dependencies]
+
+
+# The [build-system] section tells Python tools how to build your project. This is standard for Poetry.
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

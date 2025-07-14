@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if current_user %}
+        <h1>Welcome, {{ current_user.username }}!</h1>
+        
+        <form action="/tweets" method="post">
+            <textarea name="text" placeholder="What's happening?" required></textarea>
+            <button type="submit">Tweet</button>
+        </form>
+    {% else %}
+        <h1>Welcome to Twttr!</h1>
+        <p>Please <a href="/login">log in</a> or <a href="/signup">sign up</a> to see the feed.</p>
+    {% endif %}
+
+    <h2>Timeline</h2>
+    <div id="feed">
+        {% for tweet in timeline %}
+            <div class="tweet">
+                <div class="author">
+                    <a href="/profile/{{ tweet.author.username }}">{{ tweet.author.username }}</a>
+                </div>
+                <div class="content">
+                    {{ tweet.text }}
+                </div>
+                <div class="timestamp">
+                    {{ tweet.created_at.strftime('%b %d, %Y at %I:%M %p') }}
+                </div>
+            </div>
+        {% else %}
+            <p>No tweets to show. Follow some users or post your first tweet!</p>
+        {% endfor %}
+    </div>
+{% endblock %}

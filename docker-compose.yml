@@ -1,0 +1,77 @@
+# Specifies the version of the Docker Compose file format. '3.8' is a modern, stable version.
+version: '3.8'
+
+# This is the main section where all the services (containers) are defined.
+services:
+  
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - kafka
+      - cache
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=twitter_clone_db
+    ports:
+      - "5432:5432"
+
+  zookeeper:
+    image: 'bitnami/zookeeper:3.8'
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:3.4'
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+
+  consumer:
+    build: .
+    command: python consumer.py
+    volumes:
+      - ./app:/app/app
+      - ./consumer.py:/app/consumer.py
+    depends_on:
+      - db
+      - kafka
+      - cache
+    env_file:
+      - .env
+
+  # Defines the 'cache' service using Redis for timeline caching.
+  cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    # --- KEY CHANGE: Add this volume to persist Redis data ---
+    volumes:
+      - redis_data:/data
+
+# Defines the named volumes used by services for persistent storage.
+volumes:
+  postgres_data:
+  # --- KEY CHANGE: Define the new volume for Redis ---
+  redis_data:

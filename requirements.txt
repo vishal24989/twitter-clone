@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+jinja2
+passlib[bcrypt]
+bcrypt<4.0
+python-jose[cryptography]
+python-dotenv
+kafka-python
+redis
